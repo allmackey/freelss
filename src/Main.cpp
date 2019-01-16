@@ -33,6 +33,7 @@
 #include "WifiConfig.h"
 #include <curl/curl.h>
 #include <algorithm>
+#include "wiringSerial.h"
 
 static bool SortRecordByRow(const freelss::DataPoint& a, const freelss::DataPoint& b)
 {
@@ -112,6 +113,13 @@ struct InitBcmHost
 int main(int argc, char **argv)
 {
 	int retVal = 0;
+	int sid = serialOpen ("/dev/ttyS0", 115200);
+        char cmd1[100];
+        strcpy(cmd1, "G91\r\n");
+        serialPrintf(sid, cmd1);
+        serialClose (sid);
+        printf(cmd1);
+
 
 	pid_t pid = fork();
 	if (pid < 0)
@@ -142,7 +150,7 @@ int main(int argc, char **argv)
 		InitSingletons singletons;
 
 		int port = freelss::Setup::get()->httpPort;
-
+		port =81;
 		std::cout << "Running on port " << port << "..." << std::endl;
 		freelss::HttpServer::get()->start(port);
 
@@ -561,5 +569,4 @@ void ExitProgram()
 }
 
 } // ns scanner
-
 

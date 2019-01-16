@@ -64,7 +64,7 @@ Scanner::Scanner() :
 	m_laserLocations(NULL),
 	m_running(false),
 	m_range(360),
-	m_filename(""),
+	m_filename("TestFile"),
 	m_progress(),
 	m_status(),
 	m_maxNumFrameRetries(5),                    // TODO: Place this in Database
@@ -327,7 +327,17 @@ void Scanner::runScan()
 			throw Exception("Error opening range CSV file");
 		}
 	}
-
+	printf("%s %c\n","m_filename:", m_filename[0]);
+	printf("%s %c\n","m_filename:", m_filename[1]);
+	printf("%s %c\n","m_filename:", m_filename[2]);
+	printf("%s %c\n","m_filename:", m_filename[3]);
+	printf("%s %c\n","m_filename:", m_filename[4]);
+	printf("%s %c\n","m_filename:", m_filename[5]);
+	printf("%s %c\n","m_filename:", m_filename[6]);
+	printf("%s %c\n","m_filename:", m_filename[7]);
+	printf("%s %c\n","m_filename:", m_filename[8]);
+	printf("%s %c\n","m_filename:", m_filename[9]);
+	printf("%s %c\n","m_filename:", m_filename[10]);
 	// Init the results vectors
 	m_results.enter();
 	m_leftLaserResults.clear();
@@ -395,7 +405,16 @@ void Scanner::runScan()
 		numFrames = ceil(rangeRadians / frameRadians);
 
 		m_numFramesBetweenLaserPlanes = m_radiansBetweenLaserPlanes / frameRadians;
-
+		printf("%s %d\n","numFrames:", numFrames);
+		printf("%s %f\n","m_range:",m_range);
+		printf("%s %d\n","m_maxFramesPerRevolution:", m_maxFramesPerRevolution);
+		printf("%s %f\n","m_radiansPerFrame:", m_radiansPerFrame);
+		printf("%s %d\n","stepsPerRevolution:", stepsPerRevolution);
+		printf("%s %f\n","frameRadians:", frameRadians);
+		printf("%s %f\n","numFrames:", numFrames);
+		printf("%s %d\n","stepsPerFrame:", stepsPerFrame);
+		printf("%s %f\n","rangeRadians:", rangeRadians);
+		printf("%s %f\n","m_numFramesBetweenLaserPlanes:", m_numFramesBetweenLaserPlanes);
 		std::cout << "Angle between laser planes: " << RADIANS_TO_DEGREES(m_radiansBetweenLaserPlanes)
 				  << " degrees, radiansPerFrame=" << m_radiansPerFrame
 				  << ", numFramesBetweenLaserPlanes=" << m_numFramesBetweenLaserPlanes

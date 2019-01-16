@@ -21,6 +21,7 @@
 #include "Main.h"
 #include "RelayLaser.h"
 #include "Setup.h"
+#include "wiringSerial.h"
 
 namespace freelss
 {
@@ -68,12 +69,24 @@ void RelayLaser::turnOn(Laser::LaserSide laser)
 	{
 		digitalWrite (m_rightLaserPin, m_laserOnValue);
 		m_rightLaserOn = true;
+		int sid = serialOpen ("/dev/ttyS0", 115200);
+		char cmd1[100];
+        	strcpy(cmd1, "M106 P0 S255\r\n");
+        	serialPrintf(sid, cmd1);
+        	serialClose (sid);
+        	printf(cmd1);
 	}
 
 	if (laser == Laser::LEFT_LASER || laser == Laser::ALL_LASERS)
 	{
 		digitalWrite (m_leftLaserPin, m_laserOnValue);
 		m_leftLaserOn = true;
+		int sid = serialOpen ("/dev/ttyS0", 115200);
+		char cmd1[100];
+                strcpy(cmd1, "M106 P1 S255\r\n");
+                serialPrintf(sid, cmd1);
+                serialClose (sid);
+                printf(cmd1);
 	}
 }
 
@@ -83,12 +96,24 @@ void RelayLaser::turnOff(Laser::LaserSide laser)
 	{
 		digitalWrite (m_rightLaserPin, m_laserOffValue);
 		m_rightLaserOn = false;
+		int sid = serialOpen ("/dev/ttyS0", 115200);
+		char cmd1[100];
+                strcpy(cmd1, "M106 P0 S0\r\n");
+                serialPrintf(sid, cmd1);
+                serialClose (sid);
+                printf(cmd1);
 	}
 
 	if (laser == Laser::LEFT_LASER || laser == Laser::ALL_LASERS)
 	{
 		digitalWrite (m_leftLaserPin, m_laserOffValue);
 		m_leftLaserOn = false;
+		int sid = serialOpen ("/dev/ttyS0", 115200);
+		char cmd1[100];
+                strcpy(cmd1, "M106 P1 S0\r\n");
+                serialPrintf(sid, cmd1);
+                serialClose (sid);
+                printf(cmd1);
 	}
 }
 
