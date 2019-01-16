@@ -69,7 +69,7 @@ void RelayLaser::turnOn(Laser::LaserSide laser)
 	{
 		digitalWrite (m_rightLaserPin, m_laserOnValue);
 		m_rightLaserOn = true;
-		int sid = serialOpen ("/dev/ttyS0", 115200);
+		int sid = serialOpen ("/dev/ttyS0", UART_speed);
 		char cmd1[100];
         	strcpy(cmd1, "M106 P0 S255\r\n");
         	serialPrintf(sid, cmd1);
@@ -81,7 +81,7 @@ void RelayLaser::turnOn(Laser::LaserSide laser)
 	{
 		digitalWrite (m_leftLaserPin, m_laserOnValue);
 		m_leftLaserOn = true;
-		int sid = serialOpen ("/dev/ttyS0", 115200);
+		int sid = serialOpen ("/dev/ttyS0", UART_speed);
 		char cmd1[100];
                 strcpy(cmd1, "M106 P1 S255\r\n");
                 serialPrintf(sid, cmd1);
@@ -96,7 +96,7 @@ void RelayLaser::turnOff(Laser::LaserSide laser)
 	{
 		digitalWrite (m_rightLaserPin, m_laserOffValue);
 		m_rightLaserOn = false;
-		int sid = serialOpen ("/dev/ttyS0", 115200);
+		int sid = serialOpen ("/dev/ttyS0", UART_speed);
 		char cmd1[100];
                 strcpy(cmd1, "M106 P0 S0\r\n");
                 serialPrintf(sid, cmd1);
@@ -108,7 +108,7 @@ void RelayLaser::turnOff(Laser::LaserSide laser)
 	{
 		digitalWrite (m_leftLaserPin, m_laserOffValue);
 		m_leftLaserOn = false;
-		int sid = serialOpen ("/dev/ttyS0", 115200);
+		int sid = serialOpen ("/dev/ttyS0", UART_speed);
 		char cmd1[100];
                 strcpy(cmd1, "M106 P1 S0\r\n");
                 serialPrintf(sid, cmd1);

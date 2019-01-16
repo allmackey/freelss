@@ -113,7 +113,7 @@ struct InitBcmHost
 int main(int argc, char **argv)
 {
 	int retVal = 0;
-	int sid = serialOpen ("/dev/ttyS0", 115200);
+	int sid = serialOpen ("/dev/ttyS0", UART_speed);
         char cmd1[100];
         strcpy(cmd1, "G91\r\n");
         serialPrintf(sid, cmd1);

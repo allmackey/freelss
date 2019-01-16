@@ -117,6 +117,10 @@ The origin is the center of the turn table.
 #define MAX3(a, b, c) (MAX(MAX(a, b), c))
 #endif
 
+#ifndef UART_speed
+#define  UART_speed 115200
+#endif 
+
 namespace freelss
 {
 

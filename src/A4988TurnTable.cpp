@@ -98,28 +98,36 @@ void A4988TurnTable::step()
 int A4988TurnTable::rotate(real theta)
 {
 	int numSteps = (theta / (2 * PI)) * m_stepsPerRevolution;
-	int sid = serialOpen ("/dev/ttyS0",115200 );
-	float numStepsVc = numSteps/853.333;
+	int sid = serialOpen ("/dev/ttyS0",UART_speed);
+	float numStepsV = numSteps/853.333;
 	char val[10];
-	int numStepsV = numSteps/853.333;
-        if (numStepsVc >= 1.0) 
-	{	
-		sprintf(val,"%d",ceil(numStepsVc));
+	char cmd1[32];
+	char cmd2[32];
+
+        if (numStepsV>= 0.99) 
+	{
+		sprintf(val,"%d",(int) std::ceil(numStepsV));
+		printf("%s %d\n","numStepsV:", (int) std::ceil(numStepsV));
 	} else {
-		sprintf(val,"%f",numStepsVc);
+		sprintf(val,"%.2f",Round_off((double) numStepsV,2));
+		printf("%s %.2f\n","numStepsV:", Round_off((double) numStepsV,2));
 	}
-	char cmd1[100];
         strcpy(cmd1, "G91 G1 S1 F1800 Y");
+	serialPrintf(sid,"G91 G1 S1 F1800 Y");
+	serialPrintf(sid,val);
+	serialPrintf(sid,"\r\n");
 	strcat(cmd1,val);
 	strcat(cmd1,"\r\n");
-        //serialPrintf(sid, cmd1);
+	strcat(cmd1,"\0");
+	sprintf(cmd2,"%s",cmd1);
+        //serialPrintf(sid, cmd2);
         serialClose (sid);
-        printf(cmd1);
+        printf(cmd2);
 	// Get the percent of a full revolution that theta is and convert that to number of steps
 //	int numSteps = (theta / (2 * PI)) * m_stepsPerRevolution;
 	printf("%s %f\n","theta:", theta);
 	printf("%s %d\n","numSteps:", numSteps);
-	printf("%s %d\n","numStepsV:", numStepsV);
+//	printf("%s %d\n","numStepsV:", numStepsV);
 	printf("%s %d\n","Steps Per Rev:", m_stepsPerRevolution);
 // Step the required number of steps
 //	for (int i = 0; i < numSteps; i++)
@@ -140,5 +148,35 @@ void A4988TurnTable::setMotorEnabled(bool enabled)
 	digitalWrite (m_enablePin, value);
 	Thread::usleep(m_responseDelay);
 }
+
+
+float Round_off(double N, double n) 
+{ 
+    int h; 
+    double b, d, e, i, j, m, f; 
+    b = N; 
+
+  
+    // Counting the no. of digits to the left of decimal point 
+    // in the given no. 
+    for (i = 0; b >= 1; ++i) 
+        b = b / 10; 
+  
+    d = n - i; 
+    b = N; 
+    b = b * pow(10, d); 
+    e = b + 0.5; 
+    if ((float)e == (float)ceil(b)) { 
+        f = (ceil(b)); 
+        h = f - 2; 
+        if (h % 2 != 0) { 
+            e = e - 1; 
+        } 
+    } 
+    j = floor(e); 
+    m = pow(10, d); 
+    j = j / m; 
+    return j; 
+} 
 
 }

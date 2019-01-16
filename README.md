@@ -21,7 +21,7 @@ $ sudo apt-get install libpng-dev libjpeg-dev git-core gcc build-essential unzip
 
 Download and build FreeLSS
 ```
-$ git clone https://github.com/hairu/freelss
+$ git clone https://github.com/allmackey/freelss
 $ cd freelss/src
 $ make
 ```

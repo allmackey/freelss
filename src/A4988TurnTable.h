@@ -70,5 +70,6 @@ private:
 	/** The time to sleep between steps in microseconds */
 	int m_stabilityDelay;
 };
+float Round_off(double N, double n);
 
 }

@@ -52,7 +52,7 @@ Setup::Setup() :
 	motorDirPin(1),
 	motorDirPinValue(0),
 	laserOnValue(1),
-	stepsPerRevolution(307200),
+	stepsPerRevolution(307199),
 	motorResponseDelay(2),
 	motorStepDelay(5000),
 	httpPort(81),
