@@ -22,6 +22,7 @@
 #include "RelayLaser.h"
 #include "Setup.h"
 #include "wiringSerial.h"
+#include "Thread.h"
 
 namespace freelss
 {
@@ -75,6 +76,7 @@ void RelayLaser::turnOn(Laser::LaserSide laser)
         	serialPrintf(sid, cmd1);
         	serialClose (sid);
         	printf(cmd1);
+		Thread::usleep(2000);
 	}
 
 	if (laser == Laser::LEFT_LASER || laser == Laser::ALL_LASERS)
@@ -87,6 +89,7 @@ void RelayLaser::turnOn(Laser::LaserSide laser)
                 serialPrintf(sid, cmd1);
                 serialClose (sid);
                 printf(cmd1);
+		Thread::usleep(2000);
 	}
 }
 
@@ -102,6 +105,7 @@ void RelayLaser::turnOff(Laser::LaserSide laser)
                 serialPrintf(sid, cmd1);
                 serialClose (sid);
                 printf(cmd1);
+		Thread::usleep(2000);
 	}
 
 	if (laser == Laser::LEFT_LASER || laser == Laser::ALL_LASERS)
@@ -114,6 +118,7 @@ void RelayLaser::turnOff(Laser::LaserSide laser)
                 serialPrintf(sid, cmd1);
                 serialClose (sid);
                 printf(cmd1);
+		Thread::usleep(2000);
 	}
 }
 
