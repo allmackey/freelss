@@ -34,6 +34,7 @@
 #include "Facetizer.h"
 #include "PropertyReaderWriter.h"
 #include "ObjectBaseCreator.h"
+#include "wiringSerial.h"
 
 namespace freelss
 {
@@ -450,6 +451,9 @@ void Scanner::runScan()
 			logTimingStats(std::cout, timingStats);
 			std::cout << percentComplete << "% Complete, " << (remainingSec / 60) << " minutes remaining." << std::endl;
 		}
+		int sid = serialOpen ("/dev/ttyS0",UART_speed);
+		serialPrintf(sid,"M18\r\n");
+
 	}
 	catch (...)
 	{	
